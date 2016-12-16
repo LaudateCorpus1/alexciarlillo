@@ -1,13 +1,14 @@
 var path = require('path');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: {
-        main: './src/js/main.js'
+        main: 'src/scripts/main.js'
     },
     output: {
-        filename: './dist/js/[name].js'
+        path: 'dist',
+        filename: 'index_bundle.js'
     },
-    devtool: 'source-map',
     module: {
         loaders: [
             {
@@ -24,9 +25,18 @@ module.exports = {
             {   test: /\.css$/,
                 loaders:['style', 'css']
             },
+            {   test: /\.pug$/,
+                loaders:['pug']
+            },
         ]
     },
     devServer: {
         historyApiFallback: true
-    }
+    },
+    plugins: [
+      new HtmlWebpackPlugin({  // Also generate a test.html
+        filename: 'index.html',
+        template: 'src/pages/index.pug'
+      })
+    ]
 }
