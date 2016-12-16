@@ -7,5 +7,10 @@
     "bootstrap": "^4.0.0-alpha.5",
     "font-awesome": "^4.7.0",
     "pug": "^2.0.0-beta6"
+  },
+  "repository": "git@bitbucket.org:alexciarlillo/my-site.git",
+  "license": "MIT",
+  "devDependencies": {
+    "webpack": "^1.14.0"
   }
 }
