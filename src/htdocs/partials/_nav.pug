@@ -1,0 +1,11 @@
+.navbar.navbar-default.navbar-static-top(role='navigation')
+  .container-fluid
+    .navbar-header
+      a.navbar-brand(href='http://alexciarlillo.com')
+        - Alex Ciarlillo
+
+    ul.nav.navbar-nav
+      li(class= page === 'index' ? 'active' : '')
+        a(href='/') Home
+      li(class= page === 'about' ? 'active' : '')
+        a(href='about.html') About

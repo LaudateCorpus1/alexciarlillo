@@ -1,0 +1,14 @@
+doctype html
+html
+  include ../partials/_head.pug
+
+  body
+    block vars
+    include ../partials/_header.pug
+
+    .container-fluid
+      .row
+        block content
+
+    include ../partials/_footer.pug
+    include ../partials/_foot.pug
