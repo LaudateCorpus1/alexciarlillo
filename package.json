@@ -4,7 +4,7 @@
   "description": "My personal website.",
   "author": "Alex Ciarlillo",
   "dependencies": {
-    "bootstrap-sass": "^3.3.7",
+    "bootstrap": "^4.0.0-alpha.5",
     "font-awesome": "^4.7.0",
     "pug": "^2.0.0-beta6"
   }
