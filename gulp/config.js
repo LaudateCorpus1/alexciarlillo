@@ -7,7 +7,7 @@ module.exports = {
     dest: dest
   },
   sass: {
-    src: src + "/styles/**/*.scss",
+    src: src + "/styles/*.scss",
     dest: dest + '/styles',
     settings: {
       outputStyle: 'compressed', // libsass doesn't support expanded yet
