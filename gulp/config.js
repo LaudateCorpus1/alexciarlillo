@@ -23,7 +23,6 @@ module.exports = {
   },
   pug: {
     src: src + '/htdocs/**/*.pug',
-    compile: src + '/htdocs/*.pug',
     dest: dest
   },
   browserSync: {

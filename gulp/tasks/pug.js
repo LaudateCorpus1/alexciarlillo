@@ -5,7 +5,7 @@ var notify       = require('gulp-notify');
 var config      = require('../config').pug;
 
 gulp.task('pug', function() {
-    return gulp.src(config.compile)
+    return gulp.src(config.src)
         .pipe(pug({pretty: true}))
         .on('error', notify.onError({
           title: "Pug Compile Error",

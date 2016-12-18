@@ -1,11 +1,15 @@
-.navbar.navbar-default.navbar-static-top(role='navigation')
-  .container-fluid
-    .navbar-header
-      a.navbar-brand(href='http://alexciarlillo.com')
-        - Alex Ciarlillo
-
-    ul.nav.navbar-nav
-      li(class= page === 'index' ? 'active' : '')
-        a(href='/') Home
-      li(class= page === 'about' ? 'active' : '')
-        a(href='about.html') About
+.container
+    nav.navbar.navbar-light.bg-faded
+        button.navbar-toggler.hidden-lg-up(type='button' data-toggle='collapse' data-target='#collapseNav' aria-controls='false' aria-label='Toggle Navigation')
+        .collapse.navbar-toggleable-md#collapseNav
+            a.navbar-brand(href='#')
+                | Alex Ciarlillo
+            ul.nav.navbar-nav
+                li.nav-item(class={active: page === 'index'})
+                    a.nav-link(href='/') Home
+                li.nav-item(class={active: page === 'about'})
+                    a.nav-link(href='about.html') About
+                li.nav-item(class={active: page === 'projects'})
+                    a.nav-link(href='projects.html') Projects
+                li.nav-item(class={active: page === 'resume'})
+                    a.nav-link(href='resume.html') Résumé
