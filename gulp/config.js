@@ -41,6 +41,7 @@ module.exports = {
         entries: src + '/scripts/main.js',
         dest: dest + '/scripts',
         outputName: 'main.js',
+        paths: ['./node_modules'],
         loadMaps: true
       }]
   }

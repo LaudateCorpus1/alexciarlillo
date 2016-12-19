@@ -1,10 +1,10 @@
 @import './variables';
 @import '../../node_modules/bootstrap/scss/bootstrap';
 @import '../../node_modules/font-awesome/scss/font-awesome';
-@import url('https://fonts.googleapis.com/css?family=Lato:400,400i|Vollkorn:400,700');
+@import url('https://fonts.googleapis.com/css?family=Fredericka+the+Great|Vollkorn:400,400i,700,700i');
 
 body {
-    font-family: 'Lato', sans-serif;
+    font-family: 'Vollkorn', serif;
 }
 
 h1 {
@@ -22,13 +22,23 @@ h1,h2,h3,h4,h5,h6 {
 
 .nav-link {
     font-family: 'Vollkorn', serif;
-    font-size: 1.5rem;
+    font-size: 1.75rem;
 }
 
 .navbar {
     border-radius: 0;
 }
 
-.navbar-brand img {
-    max-height: 5rem;
+.navbar-brand {
+  font-family: 'Fredericka the Great', cursive;
+  font-size: 2rem;
+  border-radius: 3px;
+  padding: .25rem;
+}
+
+footer {
+  background-color: $x-pallete-1;
+  padding-top: .5rem;
+  color: $x-pallete-4;
+  i { margin: 0 .25rem; }
 }

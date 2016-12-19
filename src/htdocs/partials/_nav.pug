@@ -3,13 +3,21 @@ nav.navbar.navbar-dark.bg-inverse.row
     button.navbar-toggler.hidden-lg-up(type='button' data-toggle='collapse' data-target='#collapseNav' aria-controls='false' aria-label='Toggle Navigation')
     .collapse.navbar-toggleable-md#collapseNav
         a.navbar-brand(href='#')
-            img.rounded-circle.img-fluid(src='/images/me-prisma.jpg')
+            | AVC
         ul.nav.navbar-nav
-            li.nav-item(class={active: page === 'index'})
-                a.nav-link(href='/') Home
             li.nav-item(class={active: page === 'about'})
                 a.nav-link(href='about.html') About
             li.nav-item(class={active: page === 'projects'})
                 a.nav-link(href='projects.html') Projects
             li.nav-item(class={active: page === 'resume'})
                 a.nav-link(href='resume.html') Résumé
+        ul.nav.navbar-nav.float-xs-right
+            li.nav-item
+                a.nav-link(href='https://github.com/alexciarlillo')
+                  i.fa.fa-github-square
+            li.nav-item
+                a.nav-link(href='https://twitter.com/acpound')
+                  i.fa.fa-twitter-square
+            li.nav-item
+                a.nav-link(href='https://www.linkedin.com/in/alexciarlillo')
+                  i.fa.fa-linkedin-square
