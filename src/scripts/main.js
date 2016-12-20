@@ -1,6 +1,6 @@
 /* JS will live here... someday */
 global.jQuery = require('jquery');
-require('tether');
+global.Tether = require('tether');
 require('bootstrap');
 
 jQuery(document).ready(function() {
