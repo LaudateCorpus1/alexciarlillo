@@ -49,6 +49,10 @@ header, .content {
 
 .navbar-dark .navbar-brand {
   color: $x-pallete-4;
+
+  &.active {
+    color: $x-pallete-3;
+  }
 }
 
 footer {
@@ -69,4 +73,38 @@ img.rounded-circle.float-xs-left {
 p.curved-left {
   margin-left: 5rem;
   text-align: justify;
+}
+
+@include media-breakpoint-up(md) {
+  .fake-border {
+    position: relative;
+  }
+
+  .fake-border:before {
+      content: '';
+      height: 80%; //You can change this if you want smaller/bigger borders
+      width: 1px;
+
+      left: 0;
+      position: absolute;
+      top: 10%; // If you want to set a smaller height and center it, change this value
+
+      background-color: $x-pallete-3; // The color of your border
+  }
+
+  .fake-border:after {
+      content: '';
+      height: 80%; //You can change this if you want smaller/bigger borders
+      width: 1px;
+
+      right: 0;
+      position: absolute;
+      top: 10%; // If you want to set a smaller height and center it, change this value
+
+      background-color: $x-pallete-3; // The color of your border
+  }
+}
+.col-md-10 { position: relative; }
+.col-md-10:after {
+
 }
