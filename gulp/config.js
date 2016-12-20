@@ -41,13 +41,13 @@ module.exports = {
         entries: src + '/scripts/main.js',
         dest: dest + '/scripts',
         outputName: 'main.js',
-        external: ['jquery', 'bootstrap', 'tether'],
+        external: ['jquery', 'tether', 'bootstrap'],
         loadMaps: true
     },
     {
         dest: dest + '/scripts',
         outputName: 'vendor.js',
-        require: ['jquery', 'bootstrap', 'tether'],
+        require: ['jquery', 'tether', 'bootstrap'],
         paths: ['./node_modules'],
         loadMaps: true
     }]
