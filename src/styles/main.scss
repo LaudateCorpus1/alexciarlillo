@@ -47,6 +47,10 @@ header, .content {
   padding: .25rem;
 }
 
+.navbar-dark .navbar-brand {
+  color: $x-pallete-4;
+}
+
 footer {
   background-color: $x-pallete-1;
   padding-top: .5rem;
@@ -54,4 +58,15 @@ footer {
   i { margin: 0 .25rem; }
   padding-bottom: .25rem;
   box-shadow: 0px 7px 10px -4px rgba(0,0,0,0.5), 3px 0px 6px 0 rgba(0,0,0,0.5), -3px 0px 6px 0 rgba(0,0,0,0.5);
+}
+
+img.rounded-circle.float-xs-left {
+  max-width: 8rem;
+  margin: 0 .5rem 0 0;
+  shape-outside: circle(4.5rem at 4rem 4rem);
+}
+
+p.curved-left {
+  margin-left: 5rem;
+  text-align: justify;
 }
