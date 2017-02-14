@@ -44,7 +44,7 @@ footer, header {
   border-radius: 3px;
   font-family: 'Fredericka the Great', cursive;
   font-size: 2rem;
-  padding: .25rem;
+  padding: .125rem;
 }
 
 .navbar-dark .navbar-brand {
@@ -53,6 +53,15 @@ footer, header {
   &.active {
     color: $x-pallete-3;
   }
+}
+
+.nav-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar-toggler {
+  align-self: center;
 }
 
 footer {
@@ -67,7 +76,8 @@ footer {
   }
 }
 
-.rounded-circle.float-xs-left {
+.rounded-circle {
+  float: left;
   margin: 0 .5rem 0 0;
   max-width: 8rem;
   shape-outside: circle(4.5rem at 4rem 4rem);
@@ -114,4 +124,17 @@ footer {
 
 .col-md-10 {
   position: relative;
+}
+
+@include media-breakpoint-down(sm) {
+  .nav-left {
+    .nav-item {
+      text-align: center;
+    }
+  }
+
+  .nav-right {
+    flex-direction: row;
+    justify-content: space-around;
+  }
 }
