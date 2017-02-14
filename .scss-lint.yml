@@ -1,0 +1,5 @@
+severity: warning
+
+linters:
+  SingleLinePerSelector:
+    enabled: false

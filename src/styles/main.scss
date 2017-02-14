@@ -4,46 +4,46 @@
 @import url('https://fonts.googleapis.com/css?family=Fredericka+the+Great|Vollkorn:400,400i,700,700i');
 
 body {
-    font-family: 'Vollkorn', serif;
+  font-family: 'Vollkorn', serif;
 }
 
 h1 {
-    font-size: 3rem;
+  font-size: 3rem;
 }
 
-h1,h2,h3,h4,h5,h6 {
-    font-family: 'Vollkorn', serif;
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Vollkorn', serif;
 }
 
-header, footer {
-    position: relative;
-    z-index: 1;
+footer, header {
+  position: relative;
+  z-index: 1;
 }
 
-header, .content {
-    box-shadow: 3px 0px 6px 0 rgba(0,0,0,0.5), -3px 0px 6px 0 rgba(0,0,0,0.5);
+.content, header {
+  box-shadow: 3px 0 6px 0 $shadow-color, -3px 0 6px 0 $shadow-color;
 }
 
 .content {
-    background-color: $x-pallete-4;
-    padding-top: 1rem;
-    position: relative;
-    z-index: 100;
+  background-color: $x-pallete-4;
+  padding-top: 1rem;
+  position: relative;
+  z-index: 100;
 }
 
 .nav-link {
-    font-family: 'Vollkorn', serif;
-    font-size: 1.75rem;
+  font-family: 'Vollkorn', serif;
+  font-size: 1.75rem;
 }
 
 .navbar {
-    border-radius: 0;
+  border-radius: 0;
 }
 
 .navbar-brand {
+  border-radius: 3px;
   font-family: 'Fredericka the Great', cursive;
   font-size: 2rem;
-  border-radius: 3px;
   padding: .25rem;
 }
 
@@ -57,22 +57,33 @@ header, .content {
 
 footer {
   background-color: $x-pallete-1;
-  padding-top: .5rem;
+  box-shadow: 0 7px 10px -4px $shadow-color, 3px 0 6px 0 $shadow-color, -3px 0 6px 0 $shadow-color;
   color: $x-pallete-2;
-  i { margin: 0 .25rem; }
   padding-bottom: .25rem;
-  box-shadow: 0px 7px 10px -4px rgba(0,0,0,0.5), 3px 0px 6px 0 rgba(0,0,0,0.5), -3px 0px 6px 0 rgba(0,0,0,0.5);
+  padding-top: .5rem;
+
+  i {
+    margin: 0 .25rem;
+  }
 }
 
-img.rounded-circle.float-xs-left {
-  max-width: 8rem;
+.rounded-circle.float-xs-left {
   margin: 0 .5rem 0 0;
+  max-width: 8rem;
   shape-outside: circle(4.5rem at 4rem 4rem);
 }
 
-p.curved-left {
+.curved-left {
   margin-left: 5rem;
   text-align: justify;
+
+  @include media-breakpoint-down(sm) {
+    margin-left: 1rem;
+  }
+
+  @include media-breakpoint-up(lg) {
+    margin-left: 5rem;
+  }
 }
 
 @include media-breakpoint-up(md) {
@@ -80,31 +91,27 @@ p.curved-left {
     position: relative;
   }
 
-  .fake-border:before {
-      content: '';
-      height: 80%; //You can change this if you want smaller/bigger borders
-      width: 1px;
-
-      left: 0;
-      position: absolute;
-      top: 10%; // If you want to set a smaller height and center it, change this value
-
-      background-color: $x-pallete-3; // The color of your border
+  .fake-border::before {
+    background-color: $x-pallete-3;
+    content: '';
+    height: 80%;
+    left: 0;
+    position: absolute;
+    top: 10%;
+    width: 1px;
   }
 
-  .fake-border:after {
-      content: '';
-      height: 80%; //You can change this if you want smaller/bigger borders
-      width: 1px;
-
-      right: 0;
-      position: absolute;
-      top: 10%; // If you want to set a smaller height and center it, change this value
-
-      background-color: $x-pallete-3; // The color of your border
+  .fake-border::after {
+    background-color: $x-pallete-3;
+    content: '';
+    height: 80%;
+    position: absolute;
+    right: 0;
+    top: 10%;
+    width: 1px;
   }
 }
-.col-md-10 { position: relative; }
-.col-md-10:after {
 
+.col-md-10 {
+  position: relative;
 }
