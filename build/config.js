@@ -1,21 +1,23 @@
 const path = require('path');
+const uniq = require('lodash/uniq');
+const merge = require('webpack-merge');
 const argv = require('minimist')(process.argv.slice(2));
 
 const isProduction = !!((argv.env && argv.env.production) || argv.p);
 const rootPath = process.cwd();
-const dist = path.join(rootPath, 'dist');
-const src = path.join(rootPath, 'src');
 const sourceMapQueryStr = (!isProduction) ? '+sourceMap' : '-sourceMap';
 
 const config = {
-    entry: [
-      "./scripts/main.js",
-      "./styles/main.scss",
-    ],
+    entry: {
+      main: [
+        "./scripts/main.js",
+        "./styles/main.scss",
+      ],
+    },
     paths: {
       root: rootPath,
-      src: src,
-      dist: dist,
+      src: path.join(rootPath, 'src'),
+      dist: path.join(rootPath, 'dist'),
     },
     enabled: {
       sourceMaps: !isProduction,
@@ -25,17 +27,21 @@ const config = {
     },
     assetsFilenames: '[name]',
     sourceMapQueryStr: sourceMapQueryStr,
-    env: Object.assign({ production: isProduction, development: !isProduction }, argv.env),
-    publicPath: `/`,
     copy: 'images/**/*',
     proxyUrl: 'http://localhost:3000',
     cacheBusting: '[name]_[hash]',
-    watch: [`${path.basename(src)}/images/**/*`],
-    "browsers": [
-    "last 2 versions",
-    "android 4",
-    "opera 12"
-  ]
+    watch: [],
+    browsers: [
+      "last 2 versions",
+      "android 4",
+      "opera 12",
+    ],
 };
 
-module.exports = config;
+config.watch.push(`${path.basename(config.paths.src)}/${config.copy}`);
+config.watch = uniq(config.watch);
+
+module.exports = merge(config, {
+  env: Object.assign({ production: isProduction, development: !isProduction }, argv.env),
+  publicPath: `${config.publicPath}/${path.basename(config.paths.dist)}/`,
+});

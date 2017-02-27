@@ -8,6 +8,8 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 const config = require('./config');
 
+process.traceDeprecation = true;
+
 let webpackConfig = {
   context: config.paths.src,
   entry: config.entry,
@@ -23,21 +25,25 @@ let webpackConfig = {
         enforce: 'pre',
         test: /\.js?$/,
         include: config.paths.src,
-        loader: 'eslint',
+        use: [{
+          loader: 'eslint'
+        }],
       },
       {
         test: /\.js$/,
         exclude: [/(node_modules|bower_components)(?![/|\\](bootstrap|foundation-sites))/],
-        loader: 'buble',
-        options: { objectAssign: 'Object.assign' },
+        use: [{
+          loader: 'buble',
+          options: { objectAssign: 'Object.assign' },
+        }],
       },
       {
         test: /\.css$/,
         include: config.paths.src,
-        loader: ExtractTextPlugin.extract({
-          fallbackLoader: 'style',
+        use: ExtractTextPlugin.extract({
+          fallback: 'style',
           publicPath: '../',
-          loader: [
+          use: [
             `css?${config.sourceMapQueryStr}`,
             'postcss',
           ],
@@ -46,10 +52,10 @@ let webpackConfig = {
       {
         test: /\.scss$/,
         include: config.paths.src,
-        loader: ExtractTextPlugin.extract({
-          fallbackLoader: 'style',
+        use: ExtractTextPlugin.extract({
+          fallback: 'style',
           publicPath: '/styles',
-          loader: [
+          use: [
             `css?${config.sourceMapQueryStr}`,
             'postcss',
             `resolve-url?${config.sourceMapQueryStr}`,
@@ -60,21 +66,21 @@ let webpackConfig = {
       {
         test: /\.(png|jpe?g|gif|svg|ico)$/,
         include: config.paths.src,
-        loader: `file?${qs.stringify({
+        use: `file?${qs.stringify({
           name: `[path]${config.assetsFilenames}.[ext]`,
         })}`,
       },
       {
         test: /\.(ttf|eot)$/,
         include: config.paths.src,
-        loader: `file?${qs.stringify({
+        use: `file?${qs.stringify({
           name: `[path]${config.assetsFilenames}.[ext]`,
         })}`,
       },
       {
         test: /\.woff2?$/,
         include: config.paths.src,
-        loader: `url?${qs.stringify({
+        use: `url?${qs.stringify({
           limit: 10000,
           mimetype: 'application/font-woff',
           name: `[path]${config.assetsFilenames}.[ext]`,
@@ -83,10 +89,12 @@ let webpackConfig = {
       {
         test: /\.(ttf|eot|woff2?|png|jpe?g|gif|svg)$/,
         include: /node_modules|bower_components/,
-        loader: 'file',
-        options: {
-          name: `vendor/${config.cacheBusting}.[ext]`,
-        },
+        use: [{
+          loader: 'file',
+          options: {
+            name: `vendor/${config.cacheBusting}.[ext]`,
+          },
+        }],
       },
     ],
   },
@@ -94,7 +102,6 @@ let webpackConfig = {
     modules: [
       config.paths.src,
       'node_modules',
-      'bower_components',
     ],
     enforceExtension: false,
   },
