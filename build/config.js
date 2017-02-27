@@ -8,7 +8,10 @@ const src = path.join(rootPath, 'src');
 const sourceMapQueryStr = (!isProduction) ? '+sourceMap' : '-sourceMap';
 
 const config = {
-    entry: "./scripts/main.js",
+    entry: [
+      "./scripts/main.js",
+      "./styles/main.scss",
+    ],
     paths: {
       root: rootPath,
       src: src,

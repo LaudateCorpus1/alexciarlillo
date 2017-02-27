@@ -1,6 +1,3 @@
-const path = require('path');
-const argv = require('minimist')(process.argv.slice(2));
-const uniq = require('lodash/uniq');
 const merge = require('webpack-merge');
 const webpack = require('webpack');
 const qs = require('qs');
@@ -51,7 +48,7 @@ let webpackConfig = {
         include: config.paths.src,
         loader: ExtractTextPlugin.extract({
           fallbackLoader: 'style',
-          publicPath: '../',
+          publicPath: '/styles',
           loader: [
             `css?${config.sourceMapQueryStr}`,
             'postcss',
@@ -116,7 +113,7 @@ let webpackConfig = {
       {
         from: config.copy,
         to: `[path]${config.assetsFilenames}.[ext]`,
-      }
+      },
     ]),
     new ExtractTextPlugin({
       filename: `styles/${config.assetsFilenames}.css`,
