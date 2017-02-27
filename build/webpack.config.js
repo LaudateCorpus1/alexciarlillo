@@ -2,51 +2,14 @@ const path = require('path');
 const argv = require('minimist')(process.argv.slice(2));
 const uniq = require('lodash/uniq');
 const merge = require('webpack-merge');
-
 const webpack = require('webpack');
 const qs = require('qs');
 const autoprefixer = require('autoprefixer');
 const CleanPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
 const CopyPlugin = require('copy-webpack-plugin');
 
-const isProduction = !!((argv.env && argv.env.production) || argv.p);
-const rootPath = process.cwd();
-const dist = path.join(rootPath, 'dist');
-const src = path.join(rootPath, 'src');
-const assetsFilenames = '[name]';
-const sourceMapQueryStr = (!isProduction) ? '+sourceMap' : '-sourceMap';
-
-const config = {
-    entry: "./scripts/main.js",
-    output: {
-        path: __dirname,
-        filename: "bundle.js"
-    },
-    module: {
-        loaders: [
-            { test: /\.css$/, loader: "style!css" }
-        ]
-    },
-    paths: {
-      root: rootPath,
-      src: src,
-      dist: dist,
-    },
-    enabled: {
-      sourceMaps: !isProduction,
-      optimize: isProduction,
-      cacheBusting: isProduction,
-      watcher: !!argv.watch,
-    },
-    env: Object.assign({ production: isProduction, development: !isProduction }, argv.env),
-    publicPath: `/`,
-    copy: ['images/**/*'],
-    proxyUrl: 'http://localhost:3000',
-    cacheBusting: '[name]_[hash]',
-    watch: [`${path.basename(src)}/images/**/*`]
-};
+const config = require('./config');
 
 let webpackConfig = {
   context: config.paths.src,
@@ -55,7 +18,7 @@ let webpackConfig = {
   output: {
     path: config.paths.dist,
     publicPath: config.publicPath,
-    filename: `scripts/${assetsFilenames}.js`,
+    filename: `scripts/${config.assetsFilenames}.js`,
   },
   module: {
     rules: [
@@ -78,22 +41,22 @@ let webpackConfig = {
           fallbackLoader: 'style',
           publicPath: '../',
           loader: [
-            `css?${sourceMapQueryStr}`,
+            `css?${config.sourceMapQueryStr}`,
             'postcss',
           ],
         }),
       },
       {
         test: /\.scss$/,
-        include: config.paths.assets,
+        include: config.paths.src,
         loader: ExtractTextPlugin.extract({
           fallbackLoader: 'style',
           publicPath: '../',
           loader: [
-            `css?${sourceMapQueryStr}`,
+            `css?${config.sourceMapQueryStr}`,
             'postcss',
-            `resolve-url?${sourceMapQueryStr}`,
-            `sass?${sourceMapQueryStr}`,
+            `resolve-url?${config.sourceMapQueryStr}`,
+            `sass?${config.sourceMapQueryStr}`,
           ],
         }),
       },
@@ -101,14 +64,14 @@ let webpackConfig = {
         test: /\.(png|jpe?g|gif|svg|ico)$/,
         include: config.paths.src,
         loader: `file?${qs.stringify({
-          name: `[path]${assetsFilenames}.[ext]`,
+          name: `[path]${config.assetsFilenames}.[ext]`,
         })}`,
       },
       {
         test: /\.(ttf|eot)$/,
         include: config.paths.src,
         loader: `file?${qs.stringify({
-          name: `[path]${assetsFilenames}.[ext]`,
+          name: `[path]${config.assetsFilenames}.[ext]`,
         })}`,
       },
       {
@@ -117,7 +80,7 @@ let webpackConfig = {
         loader: `url?${qs.stringify({
           limit: 10000,
           mimetype: 'application/font-woff',
-          name: `[path]${assetsFilenames}.[ext]`,
+          name: `[path]${config.assetsFilenames}.[ext]`,
         })}`,
       },
       {
@@ -149,17 +112,14 @@ let webpackConfig = {
       root: config.paths.root,
       verbose: false,
     }),
-    /**
-     * It would be nice to switch to copy-webpack-plugin, but
-     * unfortunately it doesn't provide a reliable way of
-     * tracking the before/after file names
-     */
-    new CopyPlugin({
-      pattern: [config.copy],
-      output: `[path]${assetsFilenames}.[ext]`,
-    }),
+    new CopyPlugin([
+      {
+        from: config.copy,
+        to: `[path]${config.assetsFilenames}.[ext]`,
+      }
+    ]),
     new ExtractTextPlugin({
-      filename: `styles/${assetsFilenames}.css`,
+      filename: `styles/${config.assetsFilenames}.css`,
       allChunks: true,
       disable: (config.enabled.watcher),
     }),
@@ -194,10 +154,11 @@ let webpackConfig = {
   ],
 };
 
+
 /* eslint-disable global-require */ /** Let's only load dependencies as needed */
 
 if (config.enabled.optimize) {
-  webpackConfig = merge(webpackConfig, require('./build/webpack.config.optimize'));
+  webpackConfig = merge(webpackConfig, require('./webpack.config.optimize'));
 }
 
 if (config.env.production) {
