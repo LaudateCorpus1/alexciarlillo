@@ -28,6 +28,8 @@ const config = {
     assetsFilenames: '[name]',
     sourceMapQueryStr: sourceMapQueryStr,
     copy: 'images/**/*',
+    publicPath: '/',
+    devUrl: 'http://localhost:3100',
     proxyUrl: 'http://localhost:3000',
     cacheBusting: '[name]_[hash]',
     watch: [],
@@ -43,5 +45,5 @@ config.watch = uniq(config.watch);
 
 module.exports = merge(config, {
   env: Object.assign({ production: isProduction, development: !isProduction }, argv.env),
-  publicPath: `${config.publicPath}/${path.basename(config.paths.dist)}/`,
+  publicPath: '/',
 });

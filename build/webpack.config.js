@@ -5,10 +5,15 @@ const autoprefixer = require('autoprefixer');
 const CleanPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = require('./config');
 
-process.traceDeprecation = true;
+const extractStyle = new ExtractTextPlugin({
+  filename: `styles/${config.assetsFilenames}.css`,
+  allChunks: true,
+  disable: (config.enabled.watcher),
+});
 
 let webpackConfig = {
   context: config.paths.src,
@@ -38,9 +43,14 @@ let webpackConfig = {
         }],
       },
       {
+        test: /\.pug$/,
+        include: config.paths.src,
+        use: 'pug-html-loader',
+      },
+      {
         test: /\.css$/,
         include: config.paths.src,
-        use: ExtractTextPlugin.extract({
+        use: extractStyle.extract({
           fallback: 'style',
           publicPath: '../',
           use: [
@@ -52,7 +62,7 @@ let webpackConfig = {
       {
         test: /\.scss$/,
         include: config.paths.src,
-        use: ExtractTextPlugin.extract({
+        use: extractStyle.extract({
           fallback: 'style',
           publicPath: '/styles',
           use: [
@@ -122,11 +132,7 @@ let webpackConfig = {
         to: `[path]${config.assetsFilenames}.[ext]`,
       },
     ]),
-    new ExtractTextPlugin({
-      filename: `styles/${config.assetsFilenames}.css`,
-      allChunks: true,
-      disable: (config.enabled.watcher),
-    }),
+    extractStyle,
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
@@ -155,6 +161,9 @@ let webpackConfig = {
         eslint: { failOnWarning: false, failOnError: true },
       },
     }),
+    new HtmlWebpackPlugin({
+      template: 'htdocs/index.pug'
+    })
   ],
 };
 
@@ -170,7 +179,7 @@ if (config.env.production) {
 }
 
 if (config.enabled.watcher) {
-  webpackConfig.entry = require('./build/util/addHotMiddleware')(webpackConfig.entry);
+  webpackConfig.entry = require('./util/addHotMiddleware')(webpackConfig.entry);
   webpackConfig = merge(webpackConfig, require('./webpack.config.watch'));
 }
 
