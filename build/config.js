@@ -17,7 +17,7 @@ const config = {
     paths: {
       root: rootPath,
       src: path.join(rootPath, 'src'),
-      dist: path.join(rootPath, 'dist'),
+      dist: path.join(rootPath, 'public'),
     },
     enabled: {
       sourceMaps: !isProduction,
@@ -28,7 +28,6 @@ const config = {
     assetsFilenames: '[name]',
     sourceMapQueryStr: sourceMapQueryStr,
     copy: 'images/**/*',
-    publicPath: '/',
     devUrl: 'http://localhost:3100',
     proxyUrl: 'http://localhost:3000',
     cacheBusting: '[name]_[hash]',
@@ -45,5 +44,5 @@ config.watch = uniq(config.watch);
 
 module.exports = merge(config, {
   env: Object.assign({ production: isProduction, development: !isProduction }, argv.env),
-  publicPath: '/',
+  publicPath: '/public',
 });
