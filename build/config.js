@@ -28,7 +28,8 @@ const config = {
     assetsFilenames: '[name]',
     sourceMapQueryStr: sourceMapQueryStr,
     copy: 'images/**/*',
-    devUrl: 'http://localhost:3100',
+    htdocs: 'htdocs/**/*',
+    devUrl: 'http://localhost:8080',
     proxyUrl: 'http://localhost:3000',
     cacheBusting: '[name]_[hash]',
     watch: [],
@@ -39,6 +40,7 @@ const config = {
     ],
 };
 
+config.watch.push(`${path.basename(config.paths.src)}/${config.htdocs}`);
 config.watch.push(`${path.basename(config.paths.src)}/${config.copy}`);
 config.watch = uniq(config.watch);
 

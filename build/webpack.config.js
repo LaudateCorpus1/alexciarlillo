@@ -36,7 +36,7 @@ let webpackConfig = {
       },
       {
         test: /\.js$/,
-        exclude: [/(node_modules|bower_components)(?![/|\\](bootstrap|foundation-sites))/],
+        exclude: [/(node_modules|bower_components)(?![/|\\](bootstrap|jquery))/],
         use: [{
           loader: 'buble',
           options: { objectAssign: 'Object.assign' },
@@ -118,9 +118,11 @@ let webpackConfig = {
   resolveLoader: {
     moduleExtensions: ['-loader'],
   },
+  /*
   externals: {
     jquery: 'jQuery',
   },
+  */
   plugins: [
     new CleanPlugin([config.paths.dist], {
       root: config.paths.root,
