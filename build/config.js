@@ -46,5 +46,5 @@ config.watch = uniq(config.watch);
 
 module.exports = merge(config, {
   env: Object.assign({ production: isProduction, development: !isProduction }, argv.env),
-  publicPath: '/public',
+  publicPath: '/',
 });

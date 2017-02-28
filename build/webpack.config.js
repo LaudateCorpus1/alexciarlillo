@@ -11,7 +11,6 @@ const config = require('./config');
 
 const extractStyle = new ExtractTextPlugin({
   filename: `styles/${config.assetsFilenames}.css`,
-  allChunks: true,
   disable: (config.enabled.watcher),
 });
 
@@ -36,7 +35,7 @@ let webpackConfig = {
       },
       {
         test: /\.js$/,
-        exclude: [/(node_modules|bower_components)(?![/|\\](bootstrap|jquery))/],
+        exclude: [/(node_modules)(?![/|\\](bootstrap|jquery))/],
         use: [{
           loader: 'buble',
           options: { objectAssign: 'Object.assign' },
@@ -64,7 +63,7 @@ let webpackConfig = {
         include: config.paths.src,
         use: extractStyle.extract({
           fallback: 'style',
-          publicPath: '/styles',
+          publicPath: '../',
           use: [
             `css?${config.sourceMapQueryStr}`,
             'postcss',
@@ -98,11 +97,12 @@ let webpackConfig = {
       },
       {
         test: /\.(ttf|eot|woff2?|png|jpe?g|gif|svg)$/,
-        include: /node_modules|bower_components/,
+        include: /node_modules/,
         use: [{
           loader: 'file',
           options: {
-            name: `vendor/${config.cacheBusting}.[ext]`,
+            name: `vendor/${config.assetsFilenames}.[ext]`,
+            publicPath: '/',
           },
         }],
       },
