@@ -5,7 +5,7 @@ const argv = require('minimist')(process.argv.slice(2));
 
 const isProduction = !!((argv.env && argv.env.production) || argv.p);
 const rootPath = process.cwd();
-const sourceMapQueryStr = (!isProduction) ? '+sourceMap' : '-sourceMap';
+
 
 const config = {
     entry: {
@@ -25,8 +25,6 @@ const config = {
       cacheBusting: isProduction,
       watcher: !!argv.watch,
     },
-    assetsFilenames: '[name]',
-    sourceMapQueryStr: sourceMapQueryStr,
     copy: 'images/**/*',
     htdocs: 'htdocs/**/*',
     devUrl: 'http://localhost:8080',

@@ -9,8 +9,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = require('./config');
 
+const assetsFilenames = (config.enabled.cacheBusting) ? config.cacheBusting : '[name]';
+const sourceMapQueryStr = (config.enabled.sourceMaps) ? '+sourceMap' : '-sourceMap';
+
 const extractStyle = new ExtractTextPlugin({
-  filename: `styles/${config.assetsFilenames}.css`,
+  filename: `styles/${assetsFilenames}.css`,
   disable: (config.enabled.watcher),
 });
 
@@ -21,7 +24,7 @@ let webpackConfig = {
   output: {
     path: config.paths.dist,
     publicPath: config.publicPath,
-    filename: `scripts/${config.assetsFilenames}.js`,
+    filename: `scripts/${assetsFilenames}.js`,
   },
   module: {
     rules: [
@@ -44,7 +47,7 @@ let webpackConfig = {
       {
         test: /\.pug$/,
         include: config.paths.src,
-        use: 'pug-html-loader',
+        use: ['html', 'pug-html?{"pretty":true,"exports":false}'],
       },
       {
         test: /\.css$/,
@@ -53,7 +56,7 @@ let webpackConfig = {
           fallback: 'style',
           publicPath: '../',
           use: [
-            `css?${config.sourceMapQueryStr}`,
+            `css?${sourceMapQueryStr}`,
             'postcss',
           ],
         }),
@@ -65,10 +68,10 @@ let webpackConfig = {
           fallback: 'style',
           publicPath: '../',
           use: [
-            `css?${config.sourceMapQueryStr}`,
+            `css?${sourceMapQueryStr}`,
             'postcss',
-            `resolve-url?${config.sourceMapQueryStr}`,
-            `sass?${config.sourceMapQueryStr}`,
+            `resolve-url?${sourceMapQueryStr}`,
+            `sass?${sourceMapQueryStr}`,
           ],
         }),
       },
@@ -76,14 +79,14 @@ let webpackConfig = {
         test: /\.(png|jpe?g|gif|svg|ico)$/,
         include: config.paths.src,
         use: `file?${qs.stringify({
-          name: `[path]${config.assetsFilenames}.[ext]`,
+          name: `[path]${assetsFilenames}.[ext]`,
         })}`,
       },
       {
         test: /\.(ttf|eot)$/,
         include: config.paths.src,
         use: `file?${qs.stringify({
-          name: `[path]${config.assetsFilenames}.[ext]`,
+          name: `[path]${assetsFilenames}.[ext]`,
         })}`,
       },
       {
@@ -92,7 +95,7 @@ let webpackConfig = {
         use: `url?${qs.stringify({
           limit: 10000,
           mimetype: 'application/font-woff',
-          name: `[path]${config.assetsFilenames}.[ext]`,
+          name: `[path]${assetsFilenames}.[ext]`,
         })}`,
       },
       {
@@ -101,7 +104,7 @@ let webpackConfig = {
         use: [{
           loader: 'file',
           options: {
-            name: `vendor/${config.assetsFilenames}.[ext]`,
+            name: `vendor/${assetsFilenames}.[ext]`,
             publicPath: '/',
           },
         }],
@@ -131,7 +134,7 @@ let webpackConfig = {
     new CopyPlugin([
       {
         from: config.copy,
-        to: `[path]${config.assetsFilenames}.[ext]`,
+        to: `[path]${assetsFilenames}.[ext]`,
       },
     ]),
     extractStyle,
