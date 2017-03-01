@@ -102,7 +102,7 @@ let webpackConfig = {
         test: /\.(ttf|eot|woff2?|png|jpe?g|gif|svg)$/,
         include: /node_modules/,
         use: [{
-          loader: 'file',
+          loader: 'url',
           options: {
             name: `vendor/${assetsFilenames}.[ext]`,
             publicPath: '/',
@@ -121,11 +121,6 @@ let webpackConfig = {
   resolveLoader: {
     moduleExtensions: ['-loader'],
   },
-  /*
-  externals: {
-    jquery: 'jQuery',
-  },
-  */
   plugins: [
     new CleanPlugin([config.paths.dist], {
       root: config.paths.root,
