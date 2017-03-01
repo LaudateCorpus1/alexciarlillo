@@ -1,5 +1,5 @@
 
-nav.navbar.navbar-inverse.bg-inverse.navbar-toggleable-sm.row
+nav.navbar.navbar-inverse.bg-inverse.navbar-toggleable-sm.row.fixed-top
   .nav-header
     a.navbar-inverse.navbar-brand(href='/' class={active: page === 'index'})
       | AVC
@@ -7,12 +7,12 @@ nav.navbar.navbar-inverse.bg-inverse.navbar-toggleable-sm.row
       i.fa.fa-bars
   #collapseNav.collapse.navbar-collapse
       ul.navbar-nav.mr-auto.nav-left
-          li.nav-item(class={active: page === 'about'})
-              a.nav-link(href='about.html') About
-          li.nav-item(class={active: page === 'projects'})
-              a.nav-link(href='projects.html') Projects
-          li.nav-item(class={active: page === 'resume'})
-              a.nav-link(href='resume.html') Résumé
+          li.nav-item
+              a.nav-link(href='#about') About
+          li.nav-item
+              a.nav-link(href='#projects') Projects
+          li.nav-item
+              a.nav-link(href='#resume') Résumé
       ul.navbar-nav.nav-right
           li.nav-item
               a.nav-link(href='https://github.com/alexciarlillo')
