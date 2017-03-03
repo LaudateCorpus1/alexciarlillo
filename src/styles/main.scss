@@ -19,11 +19,6 @@ h2.section {
   text-align: center;
 }
 
-footer, header {
-  position: relative;
-  z-index: 1;
-}
-
 .content, header {
   box-shadow: 3px 0 6px 0 $shadow-color, -3px 0 6px 0 $shadow-color;
 }
