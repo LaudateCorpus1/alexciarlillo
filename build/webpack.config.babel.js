@@ -1,6 +1,5 @@
 import merge from 'webpack-merge';
 import webpack from 'webpack';
-import qs from 'qs';
 import autoprefixer from 'autoprefixer';
 import CleanPlugin from 'clean-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
@@ -13,7 +12,8 @@ import addHotMiddleware from './util/addHotMiddleware';
 import config from './config';
 
 const assetsFilenames = (config.enabled.cacheBusting) ? config.cacheBusting : '[name]';
-const sourceMapQueryStr = (config.enabled.sourceMaps) ? '+sourceMap' : '-sourceMap';
+
+process.traceDeprecation = true;
 
 const extractStyle = new ExtractTextPlugin({
   filename: `styles/${assetsFilenames}.css`,
@@ -55,7 +55,10 @@ let webpackConfig = {
       {
         test: /\.pug$/,
         include: config.paths.src,
-        use: ['html-loader', 'pug-html-loader?{"pretty":true,"exports":false}'],
+        use: [
+          'html-loader',
+          { loader: 'pug-html-loader', options: { pretty:true, exports:false } },
+        ],
       },
       {
         test: /\.css$/,
@@ -64,7 +67,7 @@ let webpackConfig = {
           fallback: 'style-loader',
           publicPath: '../',
           use: [
-            `css-loader?${sourceMapQueryStr}`,
+            { loader: 'css-loader', options: { sourceMap: config.enabled.sourceMaps } },
             'postcss-loader',
           ],
         }),
@@ -76,35 +79,33 @@ let webpackConfig = {
           fallback: 'style-loader',
           publicPath: '../',
           use: [
-            `css-loader?${sourceMapQueryStr}`,
+            { loader: 'css-loader', options: { sourceMap: config.enabled.sourceMaps } },
             'postcss-loader',
-            `resolve-url-loader?${sourceMapQueryStr}`,
-            `sass-loader?${sourceMapQueryStr}`,
+            { loader: 'resolve-url-loader', options: { sourceMap: config.enabled.sourceMaps } },
+            { loader: 'sass-loader', options: { sourceMap: config.enabled.sourceMaps } },
           ],
         }),
       },
       {
         test: /\.(png|jpe?g|gif|svg|ico)$/,
         include: config.paths.src,
-        use: `file-loader?${qs.stringify({
-          name: `[path]${assetsFilenames}.[ext]`,
-        })}`,
+        use: [
+          { loader: 'file-loader', options: { name: `[path]${assetsFilenames}.[ext]` } },
+        ],
       },
       {
         test: /\.(ttf|eot)$/,
         include: config.paths.src,
-        use: `file-loader?${qs.stringify({
-          name: `[path]${assetsFilenames}.[ext]`,
-        })}`,
+        use: [
+          { loader: 'file-loader', options: { name: `[path]${assetsFilenames}.[ext]` } },
+        ],
       },
       {
         test: /\.woff2?$/,
         include: config.paths.src,
-        use: `url-loader?${qs.stringify({
-          limit: 10000,
-          mimetype: 'application/font-woff',
-          name: `[path]${assetsFilenames}.[ext]`,
-        })}`,
+        use: [
+          { loader: 'url-loader', options: { limit: 10000, mimetype: 'application/font-woff', name: `[path]${assetsFilenames}.[ext]` } },
+        ],
       },
       {
         test: /\.(ttf|eot|woff2?|png|jpe?g|gif|svg)$/,
@@ -172,10 +173,6 @@ let webpackConfig = {
   ],
 };
 
-
-/* eslint-disable global-require */ /** Let's only load dependencies as needed */
-
-
 if (config.enabled.optimize) {
   webpackConfig = merge(webpackConfig, webpackOptimizedConfig);
 }
@@ -188,6 +185,5 @@ if (config.enabled.watcher) {
   webpackConfig.entry = addHotMiddleware(webpackConfig.entry);
   webpackConfig = merge(webpackConfig, webpackWatchConfig);
 }
-
 
 export default webpackConfig;

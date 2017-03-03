@@ -50,7 +50,6 @@
     "postcss-svgo": "^2.1.6",
     "pug": "^2.0.0-beta11",
     "pug-html-loader": "^1.1.0",
-    "qs": "^6.3.1",
     "reload-html-webpack-plugin": "^0.1.2",
     "require-dir": "^0.3.1",
     "resolve-url-loader": "^2.0.0",
