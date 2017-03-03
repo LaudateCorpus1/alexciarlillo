@@ -33,7 +33,7 @@ let webpackConfig = {
         test: /\.js?$/,
         include: config.paths.src,
         use: [{
-          loader: 'eslint',
+          loader: 'eslint-loader',
         }],
       },
 
@@ -41,28 +41,28 @@ let webpackConfig = {
         test: /\.js$/,
         exclude: [/(node_modules)(?![/|\\](bootstrap|jquery))/],
         use: [{
-          loader: 'babel',
+          loader: 'babel-loader',
           options: {
             presets: [
-              ['es2015', {modules: false}]
-            ]
+              ['es2015', {modules: false}],
+            ],
           },
         }],
       },
       {
         test: /\.pug$/,
         include: config.paths.src,
-        use: ['html', 'pug-html?{"pretty":true,"exports":false}'],
+        use: ['html-loader', 'pug-html-loader?{"pretty":true,"exports":false}'],
       },
       {
         test: /\.css$/,
         include: config.paths.src,
         use: extractStyle.extract({
-          fallback: 'style',
+          fallback: 'style-loader',
           publicPath: '../',
           use: [
-            `css?${sourceMapQueryStr}`,
-            'postcss',
+            `css-loader?${sourceMapQueryStr}`,
+            'postcss-loader',
           ],
         }),
       },
@@ -70,34 +70,34 @@ let webpackConfig = {
         test: /\.scss$/,
         include: config.paths.src,
         use: extractStyle.extract({
-          fallback: 'style',
+          fallback: 'style-loader',
           publicPath: '../',
           use: [
-            `css?${sourceMapQueryStr}`,
-            'postcss',
-            `resolve-url?${sourceMapQueryStr}`,
-            `sass?${sourceMapQueryStr}`,
+            `css-loader?${sourceMapQueryStr}`,
+            'postcss-loader',
+            `resolve-url-loader?${sourceMapQueryStr}`,
+            `sass-loader?${sourceMapQueryStr}`,
           ],
         }),
       },
       {
         test: /\.(png|jpe?g|gif|svg|ico)$/,
         include: config.paths.src,
-        use: `file?${qs.stringify({
+        use: `file-loader?${qs.stringify({
           name: `[path]${assetsFilenames}.[ext]`,
         })}`,
       },
       {
         test: /\.(ttf|eot)$/,
         include: config.paths.src,
-        use: `file?${qs.stringify({
+        use: `file-loader?${qs.stringify({
           name: `[path]${assetsFilenames}.[ext]`,
         })}`,
       },
       {
         test: /\.woff2?$/,
         include: config.paths.src,
-        use: `url?${qs.stringify({
+        use: `url-loader?${qs.stringify({
           limit: 10000,
           mimetype: 'application/font-woff',
           name: `[path]${assetsFilenames}.[ext]`,
@@ -107,7 +107,7 @@ let webpackConfig = {
         test: /\.(ttf|eot|woff2?|png|jpe?g|gif|svg)$/,
         include: /node_modules/,
         use: [{
-          loader: 'url',
+          loader: 'url-loader',
           options: {
             name: `vendor/${assetsFilenames}.[ext]`,
             publicPath: '/',
@@ -122,9 +122,6 @@ let webpackConfig = {
       'node_modules',
     ],
     enforceExtension: false,
-  },
-  resolveLoader: {
-    moduleExtensions: ['-loader'],
   },
   plugins: [
     new CleanPlugin([config.paths.dist], {
@@ -175,7 +172,7 @@ let webpackConfig = {
 
 /* eslint-disable global-require */ /** Let's only load dependencies as needed */
 
-/*
+
 if (config.enabled.optimize) {
   webpackConfig = merge(webpackConfig, require('./webpack.config.optimize'));
 }
@@ -188,6 +185,6 @@ if (config.enabled.watcher) {
   webpackConfig.entry = require('./util/addHotMiddleware')(webpackConfig.entry);
   webpackConfig = merge(webpackConfig, require('./webpack.config.watch'));
 }
-*/
+
 
 module.exports = webpackConfig;
