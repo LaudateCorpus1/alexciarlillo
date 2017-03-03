@@ -1,4 +1,4 @@
-const qs = require('qs');
+import qs from 'qs';
 
 /**
  * Loop through webpack entry
@@ -6,7 +6,7 @@ const qs = require('qs');
  * @param  {Object} entry webpack entry
  * @return {Object} entry with hot middleware
  */
-module.exports = (entry) => {
+export default (entry) => {
   const results = {};
   const hotMiddlewareScript = `webpack-hot-middleware/client?${qs.stringify({
     timeout: 20000,

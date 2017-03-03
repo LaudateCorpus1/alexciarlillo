@@ -1,11 +1,11 @@
-const path = require('path');
-const uniq = require('lodash/uniq');
-const merge = require('webpack-merge');
-const argv = require('minimist')(process.argv.slice(2));
+import path from 'path';
+import {uniq} from 'lodash';
+import merge from 'webpack-merge';
+import minimist from 'minimist';
 
+const argv = minimist(process.argv.slice(2));
 const isProduction = !!((argv.env && argv.env.production) || argv.p);
 const rootPath = process.cwd();
-
 
 const config = {
     entry: {
@@ -42,7 +42,7 @@ config.watch.push(`${path.basename(config.paths.src)}/${config.htdocs}`);
 config.watch.push(`${path.basename(config.paths.src)}/${config.copy}`);
 config.watch = uniq(config.watch);
 
-module.exports = merge(config, {
+export default merge(config, {
   env: Object.assign({ production: isProduction, development: !isProduction }, argv.env),
   publicPath: '/',
 });

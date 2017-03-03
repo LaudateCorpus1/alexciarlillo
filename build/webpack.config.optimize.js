@@ -1,13 +1,11 @@
-'use strict'; // eslint-disable-line
+import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin';
+import ImageminPlugin from 'imagemin-webpack-plugin';
+import imageminMozjpeg from 'imagemin-mozjpeg';
+import cssnano from 'cssnano';
 
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const ImageminPlugin = require('imagemin-webpack-plugin').default;
-const imageminMozjpeg = require('imagemin-mozjpeg');
-const cssnano = require('cssnano');
+import config from './config';
 
-const config = require('./config');
-
-module.exports = {
+export default {
   plugins: [
     new OptimizeCssAssetsPlugin({
       cssProcessor: cssnano,

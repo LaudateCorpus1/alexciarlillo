@@ -1,13 +1,13 @@
-const merge = require('webpack-merge');
-const webpack = require('webpack');
-const qs = require('qs');
-const autoprefixer = require('autoprefixer');
-const CleanPlugin = require('clean-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+import merge from 'webpack-merge';
+import webpack from 'webpack';
+import qs from 'qs';
+import autoprefixer from 'autoprefixer';
+import CleanPlugin from 'clean-webpack-plugin';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import CopyPlugin from 'copy-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
-const config = require('./config');
+import config from './config';
 
 const assetsFilenames = (config.enabled.cacheBusting) ? config.cacheBusting : '[name]';
 const sourceMapQueryStr = (config.enabled.sourceMaps) ? '+sourceMap' : '-sourceMap';
@@ -33,15 +33,20 @@ let webpackConfig = {
         test: /\.js?$/,
         include: config.paths.src,
         use: [{
-          loader: 'eslint'
+          loader: 'eslint',
         }],
       },
+
       {
         test: /\.js$/,
         exclude: [/(node_modules)(?![/|\\](bootstrap|jquery))/],
         use: [{
-          loader: 'buble',
-          options: { objectAssign: 'Object.assign' },
+          loader: 'babel',
+          options: {
+            presets: [
+              ['es2015', {modules: false}]
+            ]
+          },
         }],
       },
       {
@@ -162,14 +167,15 @@ let webpackConfig = {
       },
     }),
     new HtmlWebpackPlugin({
-      template: 'htdocs/index.pug'
-    })
+      template: 'htdocs/index.pug',
+    }),
   ],
 };
 
 
 /* eslint-disable global-require */ /** Let's only load dependencies as needed */
 
+/*
 if (config.enabled.optimize) {
   webpackConfig = merge(webpackConfig, require('./webpack.config.optimize'));
 }
@@ -182,5 +188,6 @@ if (config.enabled.watcher) {
   webpackConfig.entry = require('./util/addHotMiddleware')(webpackConfig.entry);
   webpackConfig = merge(webpackConfig, require('./webpack.config.watch'));
 }
+*/
 
 module.exports = webpackConfig;

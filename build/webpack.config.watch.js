@@ -1,10 +1,10 @@
-const webpack = require('webpack');
-const BrowserSyncPlugin = require('browsersync-webpack-plugin');
-const ReloadPlugin = require('reload-html-webpack-plugin');
+import webpack from 'webpack';
+import ReloadPlugin from 'reload-html-webpack-plugin';
+import BrowserSyncPlugin from 'browsersync-webpack-plugin';
 
-const config = require('./config');
+import config from './config';
 
-module.exports = {
+export default {
   output: {
     pathinfo: true,
     publicPath: config.proxyUrl + config.publicPath,
