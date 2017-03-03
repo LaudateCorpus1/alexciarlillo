@@ -13,8 +13,6 @@ import config from './config';
 
 const assetsFilenames = (config.enabled.cacheBusting) ? config.cacheBusting : '[name]';
 
-process.traceDeprecation = true;
-
 const extractStyle = new ExtractTextPlugin({
   filename: `styles/${assetsFilenames}.css`,
   disable: (config.enabled.watcher),
