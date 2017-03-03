@@ -7,7 +7,7 @@ const argv = minimist(process.argv.slice(2));
 const isProduction = !!((argv.env && argv.env.production) || argv.p);
 const rootPath = process.cwd();
 
-const config = {
+let config = {
     entry: {
       main: [
         "./scripts/main.js",

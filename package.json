@@ -14,7 +14,6 @@
   "scripts": {
     "build": "webpack --progress --config build/webpack.config.babel.js",
     "build:production": "webpack --progress -p --config build/webpack.config.babel.js",
-    "build:profile": "webpack --progress --profile --json --config build/webpack.config.babel.js",
     "start": "webpack-dev-server --watch --config build/webpack.config.babel.js",
     "rmdist": "rimraf public",
     "lint": "eslint src/scripts src/build"

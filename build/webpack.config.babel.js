@@ -7,6 +7,9 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
+import webpackOptimizedConfig from './webpack.config.optimize';
+import webpackWatchConfig from './webpack.config.watch';
+import addHotMiddleware from './util/addHotMiddleware';
 import config from './config';
 
 const assetsFilenames = (config.enabled.cacheBusting) ? config.cacheBusting : '[name]';
@@ -174,7 +177,7 @@ let webpackConfig = {
 
 
 if (config.enabled.optimize) {
-  webpackConfig = merge(webpackConfig, require('./webpack.config.optimize'));
+  webpackConfig = merge(webpackConfig, webpackOptimizedConfig);
 }
 
 if (config.env.production) {
@@ -182,9 +185,9 @@ if (config.env.production) {
 }
 
 if (config.enabled.watcher) {
-  webpackConfig.entry = require('./util/addHotMiddleware')(webpackConfig.entry);
-  webpackConfig = merge(webpackConfig, require('./webpack.config.watch'));
+  webpackConfig.entry = addHotMiddleware(webpackConfig.entry);
+  webpackConfig = merge(webpackConfig, webpackWatchConfig);
 }
 
 
-module.exports = webpackConfig;
+export default webpackConfig;
