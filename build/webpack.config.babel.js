@@ -13,11 +13,6 @@ import config from './config';
 
 const assetsFilenames = (config.enabled.cacheBusting) ? config.cacheBusting : '[name]';
 
-const extractStyle = new ExtractTextPlugin({
-  filename: `styles/${assetsFilenames}.css`,
-  disable: (config.enabled.watcher),
-});
-
 let webpackConfig = {
   context: config.paths.src,
   entry: config.entry,
@@ -61,7 +56,7 @@ let webpackConfig = {
       {
         test: /\.css$/,
         include: config.paths.src,
-        use: extractStyle.extract({
+        use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           publicPath: '../',
           use: [
@@ -73,7 +68,7 @@ let webpackConfig = {
       {
         test: /\.scss$/,
         include: config.paths.src,
-        use: extractStyle.extract({
+        use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           publicPath: '../',
           use: [
@@ -136,7 +131,10 @@ let webpackConfig = {
         to: `[path]${assetsFilenames}.[ext]`,
       },
     ]),
-    extractStyle,
+    new ExtractTextPlugin({
+      filename: `styles/${assetsFilenames}.css`,
+      disable: (config.enabled.watcher),
+    }),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
