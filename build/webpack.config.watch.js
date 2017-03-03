@@ -12,7 +12,6 @@ export default {
   devtool: '#cheap-module-source-map',
   stats: false,
   plugins: [
-    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new ReloadPlugin(),
