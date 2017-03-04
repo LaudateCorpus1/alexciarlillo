@@ -164,32 +164,15 @@ footer {
   }
  }
 
-.dev-icon {
-  flex-basis: 3em;
-  flex-grow: 0;
-  margin: 0.25rem;
-
-  &.backend path {
-    fill: $x-pallete-5;
-  }
-
-  &.frontend path {
-    fill: $x-pallete-3;
-  }
-
-  &.tools path {
-    fill: $x-pallete-1;
-  }
-
-  @include media-breakpoint-down(sm) {
-    flex-basis: 2.5em;
-  }
-}
-
 .dev-icons {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
+  list-style: none;
+  text-align: center;
+
+  .dev-icon {
+    display: inline-block;
+    width: 3rem;
+    margin: 0 .25rem;
+  }
 }
 
 .specialty-list {
