@@ -1,6 +1,7 @@
 @import './variables';
 @import '~bootstrap/scss/bootstrap';
 @import '~font-awesome/scss/font-awesome';
+@import '~devicon/devicon';
 @import './fonts';
 
 body {
@@ -9,13 +10,14 @@ body {
 
 h1 {
   font-size: 3rem;
+  font-family: 'Fredericka the Great', serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h2, h3, h4, h5, h6 {
   font-family: 'Vollkorn', serif;
 }
 
-h2.section {
+.section {
   text-align: center;
 }
 
@@ -25,7 +27,7 @@ h2.section {
 
 .content {
   background-color: $x-pallete-4;
-  padding-top: 1rem;
+  padding-top: 5rem;
   position: relative;
   z-index: 100;
 }
@@ -33,6 +35,7 @@ h2.section {
 .nav-link {
   font-family: 'Vollkorn', serif;
   font-size: 1.75rem;
+  padding: 0;
 }
 
 .navbar {
@@ -136,4 +139,63 @@ footer {
     flex-direction: row;
     justify-content: space-around;
   }
+}
+
+ .headroom {
+     will-change: transform;
+     transition: transform 200ms linear;
+ }
+
+ .headroom--pinned {
+     transform: translateY(0%);
+ }
+
+ .headroom--unpinned {
+     transform: translateY(-100%);
+ }
+
+ .list-inline {
+  .list-inline-item:not(:last-child):after {
+    font-family: 'FontAwesome';
+    content: ' \f013';
+    font-size: .5rem;
+    margin-left: 5px;
+    vertical-align: middle;
+  }
+ }
+
+.dev-icon {
+  flex-basis: 3em;
+  flex-grow: 0;
+  margin: 0.25rem;
+
+  &.backend path {
+    fill: $x-pallete-5;
+  }
+
+  &.frontend path {
+    fill: $x-pallete-3;
+  }
+
+  &.tools path {
+    fill: $x-pallete-1;
+  }
+
+  @include media-breakpoint-down(sm) {
+    flex-basis: 2.5em;
+  }
+}
+
+.dev-icons {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.specialty-list {
+  font-size: 1.25rem;
+}
+
+.accent {
+  color: lighten($x-pallete-1, 15%);
 }
