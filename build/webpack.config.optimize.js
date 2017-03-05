@@ -18,7 +18,6 @@ export default {
     new ImageminPlugin({
       optipng: { optimizationLevel: 7 },
       gifsicle: { optimizationLevel: 3 },
-      pngquant: { quality: '65-90', speed: 4 },
       svgo: { removeUnknownsAndDefaults: false, cleanupIDs: false },
       plugins: [imageminMozjpeg({ quality: 75 })],
       disable: (config.enabled.watcher),

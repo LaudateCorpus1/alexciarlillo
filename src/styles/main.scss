@@ -1,7 +1,6 @@
 @import './variables';
 @import '~bootstrap/scss/bootstrap';
 @import '~font-awesome/scss/font-awesome';
-@import '~devicon/devicon';
 @import './fonts';
 
 body {
@@ -180,5 +179,32 @@ footer {
 }
 
 .accent {
-  color: lighten($x-pallete-1, 15%);
+  color: darken($x-pallete-6, 25%);
+}
+
+/* Lifted corners */
+.lifted {
+  border-radius: 1rem;
+  background-color: $x-pallete-1;
+  color: $x-pallete-2;
+  box-shadow: 3px 0 6px 0 $shadow-color, -3px 0 6px 0 $shadow-color;
+
+  h3 .accent {
+    &:first-child {
+      margin-left: .5rem;
+    }
+
+    &:last-child {
+      margin-right: .5rem;
+    }
+
+    &:not(:last-child):not(:first-child) {
+      font-size: 1.5rem;
+      vertical-align: top;
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .lamp { display: inline; }
 }
