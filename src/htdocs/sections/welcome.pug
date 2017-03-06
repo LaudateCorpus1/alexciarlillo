@@ -2,27 +2,27 @@ extends ../layouts/section.pug
 
 block vars
   - var section = ''
+  - var anchor = 'welcome'
 
 block content
   .col-10.offset-1.lifted
-    a#welcome
-      h1.text-center
-        | Alexander V Ciarlillo
-      h3.text-center
-        | Full Stack
-        .lamp
-          span.accent /
-          | L
-          span.accent [
-          |AE
-          span.accent ]
-          |MP
-          span.accent /
-        | Developer
-      h6.text-center.mt-4.accent
-        em
-          | Specializing In The Development & Deployment Of
-      ul.list-inline.text-center.specialty-list
-        li.list-inline-item WordPress Themes & Plugins
-        li.list-inline-item REST APIs
-        li.list-inline-item Single Page Applications
+    h1.text-center.mt-2
+      | Alexander V Ciarlillo
+    h3.text-center
+      | Full Stack
+      .lamp
+        span.accent /
+        | L
+        span.accent [
+        |AE
+        span.accent ]
+        |MP
+        span.accent /
+      | Developer
+    h6.text-center.mt-3.accent
+      em
+        | Specializing In The Development & Deployment Of
+    ul.list-inline.text-center.specialty-list
+      li.list-inline-item WordPress Themes & Plugins
+      li.list-inline-item REST APIs
+      li.list-inline-item Single Page Applications

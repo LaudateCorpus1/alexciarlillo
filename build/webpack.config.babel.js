@@ -61,7 +61,7 @@ let webpackConfig = {
           publicPath: '../',
           use: [
             { loader: 'css-loader', options: { sourceMap: config.enabled.sourceMaps } },
-            'postcss-loader',
+            { loader: 'postcss-loader' },
           ],
         }),
       },
@@ -73,7 +73,7 @@ let webpackConfig = {
           publicPath: '../',
           use: [
             { loader: 'css-loader', options: { sourceMap: config.enabled.sourceMaps } },
-            'postcss-loader',
+            { loader: 'postcss-loader' },
             { loader: 'resolve-url-loader', options: { sourceMap: config.enabled.sourceMaps } },
             { loader: 'sass-loader', options: { sourceMap: config.enabled.sourceMaps } },
           ],
@@ -97,19 +97,15 @@ let webpackConfig = {
         test: /\.woff2?$/,
         include: config.paths.src,
         use: [
-          { loader: 'url-loader', options: { limit: 10000, mimetype: 'application/font-woff', name: `[path]${assetsFilenames}.[ext]` } },
+          { loader: 'file-loader', options: { name: `[path]${assetsFilenames}.[ext]` } },
         ],
       },
       {
         test: /\.(ttf|eot|woff2?|png|jpe?g|gif|svg)$/,
         include: /node_modules/,
-        use: [{
-          loader: 'url-loader',
-          options: {
-            name: `vendor/${assetsFilenames}.[ext]`,
-            publicPath: '/',
-          },
-        }],
+        use: [
+          { loader: 'file-loader', options: { name: `vendor/${assetsFilenames}.[ext]` } },
+        ],
       },
     ],
   },

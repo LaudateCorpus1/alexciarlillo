@@ -11,4 +11,8 @@ jQuery(document).ready(() => {
 
   var headroom = new Headroom(document.querySelector("header"));
   headroom.init();
+
+  jQuery('.nav-link').click(() => {
+    $('#collapseNav').collapse('hide');
+  })
 });

@@ -9,10 +9,9 @@ body {
 
 h1 {
   font-size: 3rem;
-  font-family: 'Fredericka the Great', serif;
 }
 
-h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6 {
   font-family: 'Vollkorn', serif;
 }
 
@@ -26,7 +25,7 @@ h2, h3, h4, h5, h6 {
 
 .content {
   background-color: $x-pallete-4;
-  padding-top: 5rem;
+  padding-top: 3.5rem;
   position: relative;
   z-index: 100;
 }
@@ -38,14 +37,13 @@ h2, h3, h4, h5, h6 {
 }
 
 .navbar {
+  line-height: 1.25;
   border-radius: 0;
 }
 
 .navbar-brand {
-  border-radius: 3px;
-  font-family: 'Fredericka the Great', cursive;
-  font-size: 2rem;
-  padding: .125rem;
+  font-size: 1.6rem;
+  padding: 0;
 }
 
 .navbar-dark .navbar-brand {
