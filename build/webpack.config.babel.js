@@ -5,6 +5,7 @@ import CleanPlugin from 'clean-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import path from 'path';
 
 import webpackOptimizedConfig from './webpack.config.optimize';
 import webpackWatchConfig from './webpack.config.watch';
@@ -114,6 +115,10 @@ let webpackConfig = {
       config.paths.src,
       'node_modules',
     ],
+    alias: {
+      'debug.addIndicators': path.resolve('node_modules', 'scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators.js'),
+      'ScrollMagic': path.resolve('node_modules', 'scrollmagic/scrollmagic/uncompressed/ScrollMagic.js'),
+    },
     enforceExtension: false,
   },
   plugins: [

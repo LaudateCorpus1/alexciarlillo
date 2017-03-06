@@ -138,18 +138,20 @@ footer {
   }
 }
 
- .headroom {
-     will-change: transform;
-     transition: transform 200ms linear;
- }
+@include media-breakpoint-down(sm) {
+   .headroom {
+       will-change: transform;
+       transition: transform 200ms linear;
+   }
 
- .headroom--pinned {
-     transform: translateY(0%);
- }
+   .headroom--pinned {
+       transform: translateY(0%);
+   }
 
- .headroom--unpinned {
-     transform: translateY(-100%);
- }
+   .headroom--unpinned {
+       transform: translateY(-100%);
+   }
+}
 
  .list-inline {
   .list-inline-item:not(:last-child):after {
@@ -180,7 +182,6 @@ footer {
   color: darken($x-pallete-6, 25%);
 }
 
-/* Lifted corners */
 .lifted {
   border-radius: 1rem;
   background-color: $x-pallete-1;
