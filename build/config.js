@@ -31,6 +31,7 @@ let config = {
     proxyUrl: 'http://localhost:3000',
     cacheBusting: '[name]_[hash]',
     watch: [],
+    purify: ['htdocs/**/*.pug', 'scripts/**/*.js'],
     browsers: [
       "last 2 versions",
       "android 4",

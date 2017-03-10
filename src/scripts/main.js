@@ -49,6 +49,7 @@ jQuery(document).ready(() => {
     $('#collapseNav').collapse('hide');
   });
 
+
   /* eslint-disable no-console */
   updateDurations();
   $(window).on('resize', () => {
