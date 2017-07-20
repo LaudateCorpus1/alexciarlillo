@@ -1,4 +1,3 @@
-/* JS will live here... someday */
 import 'jquery';
 import 'tether';
 import 'bootstrap';
