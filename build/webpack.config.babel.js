@@ -71,7 +71,7 @@ let webpackConfig = {
         include: config.paths.src,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          publicPath: '../',
+          publicPath: '/',
           use: [
             { loader: 'css-loader', options: { sourceMap: config.enabled.sourceMaps } },
             { loader: 'postcss-loader' },
