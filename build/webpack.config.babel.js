@@ -5,14 +5,14 @@ import CleanPlugin from 'clean-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import path from 'path';
+import ImageminPlugin from 'imagemin-webpack-plugin';
 
 import webpackOptimizedConfig from './webpack.config.optimize';
 import webpackWatchConfig from './webpack.config.watch';
 import addHotMiddleware from './util/addHotMiddleware';
 import config from './config';
 
-const assetsFilenames = (config.enabled.cacheBusting) ? config.cacheBusting : '[name]';
+const cacheBust = (config.enabled.cacheBusting) ? '?id=[hash]' : '';
 
 let webpackConfig = {
   context: config.paths.src,
@@ -21,7 +21,7 @@ let webpackConfig = {
   output: {
     path: config.paths.dist,
     publicPath: config.publicPath,
-    filename: `scripts/${assetsFilenames}.js`,
+    filename: `scripts/[name].js}`,
   },
   module: {
     rules: [
@@ -59,7 +59,7 @@ let webpackConfig = {
         include: config.paths.src,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          publicPath: '../',
+          publicPath: '/',
           use: [
             { loader: 'css-loader', options: { sourceMap: config.enabled.sourceMaps } },
             { loader: 'postcss-loader' },
@@ -74,7 +74,7 @@ let webpackConfig = {
           publicPath: '/',
           use: [
             { loader: 'css-loader', options: { sourceMap: config.enabled.sourceMaps } },
-            { loader: 'postcss-loader' },
+            //{ loader: 'postcss-loader' },
             { loader: 'resolve-url-loader', options: { sourceMap: config.enabled.sourceMaps } },
             { loader: 'sass-loader', options: { sourceMap: config.enabled.sourceMaps } },
           ],
@@ -84,28 +84,28 @@ let webpackConfig = {
         test: /\.(png|jpe?g|gif|svg|ico)$/,
         include: config.paths.src,
         use: [
-          { loader: 'file-loader', options: { name: `[path]${assetsFilenames}.[ext]` } },
+          { loader: 'file-loader', options: { name: `[path][name].[ext]` } },
         ],
       },
       {
         test: /\.(ttf|eot)$/,
         include: config.paths.src,
         use: [
-          { loader: 'file-loader', options: { name: `[path]${assetsFilenames}.[ext]` } },
+          { loader: 'file-loader', options: { name: `[path][name].[ext]${cacheBust}` } },
         ],
       },
       {
         test: /\.woff2?$/,
         include: config.paths.src,
         use: [
-          { loader: 'file-loader', options: { name: `[path]${assetsFilenames}.[ext]` } },
+          { loader: 'file-loader', options: { name: `[path][name].[ext]${cacheBust}` } },
         ],
       },
       {
         test: /\.(ttf|eot|woff2?|png|jpe?g|gif|svg)$/,
         include: /node_modules/,
         use: [
-          { loader: 'file-loader', options: { name: `vendor/${assetsFilenames}.[ext]` } },
+          { loader: 'file-loader', options: { name: `vendor/[name].[ext]${cacheBust}` } },
         ],
       },
     ],
@@ -115,10 +115,6 @@ let webpackConfig = {
       config.paths.src,
       'node_modules',
     ],
-    alias: {
-      'debug.addIndicators': path.resolve('node_modules', 'scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators.js'),
-      'ScrollMagic': path.resolve('node_modules', 'scrollmagic/scrollmagic/uncompressed/ScrollMagic.js'),
-    },
     enforceExtension: false,
   },
   plugins: [
@@ -128,11 +124,16 @@ let webpackConfig = {
     }),
     new CopyPlugin(
       config.copy.map(function(copy) {
-        return {from: copy, to: `[path]${assetsFilenames}.[ext]`}
+        return {from: copy, to: `[path][name].[ext]`}
       })
     ),
+    new ImageminPlugin({
+      test: /\.(jpe?g|png|gif|svg)$/i,
+      optipng: { optimizationLevel: 7 },
+      disable: (config.enabled.watcher),
+    }),
     new ExtractTextPlugin({
-      filename: `styles/${assetsFilenames}.css`,
+      filename: `styles/[name].css`,
       disable: (config.enabled.watcher),
     }),
     new webpack.ProvidePlugin({
