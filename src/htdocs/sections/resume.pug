@@ -8,18 +8,26 @@ block vars
 block content
   .col-md-10.offset-md-1.fake-border
     .col
-      .btn-group
-        button.btn.btn-primary PDF
-        button.btn.btn-primary DOCX
+      .text-center
+        .btn-group.mb-4
+          a.btn.btn-download(href="/resume/AlexCiarlillo-Resume.pdf")
+            i.fa.fa-download
+            | PDF
+          a.btn.btn-download(href="/resume/AlexCiarlillo-Resume.docx")
+            i.fa.fa-download
+            | DOCX
+          a.btn.btn-download(href="/resume/AlexCiarlillo-Resume.odt")
+            i.fa.fa-download
+            | ODT
       
-      h3 Summary
+      h3.text-center.mt-2 Summary
       p
         | Full stack developer with 8+ years of experience in a diverse academic environment, serving a wide variety of users. Excellent written and oral communication. Have a Bachelor’s Degree in Computer Science.
       
-      h3 Experience
+      h3.text-center.mt-4 Experience
       
       h4
-        | Ohio University Libraries - Analyst/Web Developer
+        | Ohio University Libraries - <em>Analyst/Web Developer</em>
       h5
         | June 2008 - September 2017
       p
@@ -45,7 +53,7 @@ block content
           
       
       h4
-        | Ohio University — Student IT Analyst
+        | Ohio University — <em>Student IT Analyst</em>
       h5
         | September 2006 - June 2008
       p
@@ -55,7 +63,7 @@ block content
           li
             | Enhanced and maintained scripts for processing and transferring client data to vendors via FTP and SSH.
       
-      h3 Education
+      h3.text-center.mt-4 Education
       
       h4
         | Ohio University — Athens, OH — <em>B.S., Computer Science</em>
@@ -81,7 +89,7 @@ block content
             li
               | Relational Database Systems
               
-      h3 Skills
+      h3.text-center.mt-4 Skills
       
       .row
         .col-12.col-md-4
