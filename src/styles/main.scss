@@ -4,14 +4,13 @@
 @import './fonts';
 
 body {
-  font-family: 'Vollkorn', serif;
+  font-family: 'PT Sans', sans-serif;
+  line-height: 1.3;
+  font-size: 1.1rem;
 }
 
-h1 {
-  font-size: 3rem;
-}
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, .vollkorn {
   font-family: 'Vollkorn', serif;
 }
 
@@ -19,15 +18,15 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
 }
 
-.content, header {
-  box-shadow: 3px 0 6px 0 $shadow-color, -3px 0 6px 0 $shadow-color;
-}
-
 .content {
   background-color: $x-pallete-4;
   padding-top: 3.5rem;
   position: relative;
   z-index: 100;
+
+  &, header {
+    box-shadow: 3px 0 6px 0 $shadow-color, -3px 0 6px 0 $shadow-color;
+  }
 }
 
 .nav-link {
@@ -121,10 +120,6 @@ footer {
   }
 }
 
-.col-md-10 {
-  position: relative;
-}
-
 @include media-breakpoint-down(sm) {
   .nav-left {
     .nav-item {
@@ -205,4 +200,12 @@ footer {
 
 @include media-breakpoint-up(md) {
   .lamp { display: inline; }
+}
+
+.btn-download {
+  @include button-variant($x-pallete-1, $x-pallete-3, $x-pallete-1);
+
+  i {
+    margin-right: .5rem;
+  }
 }
