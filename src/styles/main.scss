@@ -87,7 +87,7 @@ footer {
   text-align: justify;
 
   @include media-breakpoint-down(sm) {
-    margin-left: 1rem;
+    margin-left: 0;
   }
 
   @include media-breakpoint-up(lg) {
@@ -136,10 +136,8 @@ footer {
     flex-direction: row;
     justify-content: space-around;
   }
-}
 
-@include media-breakpoint-down(sm) {
-   .headroom {
+  .headroom {
        will-change: transform;
        transition: transform 200ms linear;
    }
@@ -153,15 +151,6 @@ footer {
    }
 }
 
- .list-inline {
-  .list-inline-item:not(:last-child):after {
-    font-family: 'FontAwesome';
-    content: ' \f013';
-    font-size: .5rem;
-    margin-left: 5px;
-    vertical-align: middle;
-  }
- }
 
 .dev-icons {
   list-style: none;
@@ -176,6 +165,16 @@ footer {
 
 .specialty-list {
   font-size: 1.25rem;
+
+  @include media-breakpoint-up(md) {
+    .list-inline-item:not(:last-child):after {
+      font-family: 'FontAwesome';
+      content: ' \f013';
+      font-size: .5rem;
+      margin-left: 5px;
+      vertical-align: middle;
+    }
+  }
 }
 
 .accent {
