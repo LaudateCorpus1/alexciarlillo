@@ -126,12 +126,11 @@ let webpackConfig = {
       root: config.paths.root,
       verbose: false,
     }),
-    new CopyPlugin([
-      {
-        from: config.copy,
-        to: `[path]${assetsFilenames}.[ext]`,
-      },
-    ]),
+    new CopyPlugin(
+      config.copy.map(function(copy) {
+        return {from: copy, to: `[path]${assetsFilenames}.[ext]`}
+      })
+    ),
     new ExtractTextPlugin({
       filename: `styles/${assetsFilenames}.css`,
       disable: (config.enabled.watcher),

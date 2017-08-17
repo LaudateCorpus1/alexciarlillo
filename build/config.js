@@ -25,7 +25,7 @@ let config = {
       cacheBusting: isProduction,
       watcher: !!argv.watch,
     },
-    copy: 'images/**/*',
+    copy: ['images/**/*', 'resume/*'],
     htdocs: 'htdocs/**/*',
     devUrl: 'http://localhost:8080',
     proxyUrl: 'http://localhost:3000',
@@ -40,7 +40,9 @@ let config = {
 };
 
 config.watch.push(`${path.basename(config.paths.src)}/${config.htdocs}`);
-config.watch.push(`${path.basename(config.paths.src)}/${config.copy}`);
+config.copy.forEach(function(copy) {
+  config.watch.push(`${path.basename(config.paths.src)}/${copy}`);
+});
 config.watch = uniq(config.watch);
 
 export default merge(config, {
