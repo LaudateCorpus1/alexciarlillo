@@ -21,7 +21,7 @@ let webpackConfig = {
   output: {
     path: config.paths.dist,
     publicPath: config.publicPath,
-    filename: `scripts/[name].js}`,
+    filename: `scripts/[name].js${cacheBust}`,
   },
   module: {
     rules: [
@@ -84,7 +84,7 @@ let webpackConfig = {
         test: /\.(png|jpe?g|gif|svg|ico)$/,
         include: config.paths.src,
         use: [
-          { loader: 'file-loader', options: { name: `[path][name].[ext]` } },
+          { loader: 'file-loader', options: { name: `[path][name].[ext]${cacheBust}` } },
         ],
       },
       {
@@ -124,7 +124,7 @@ let webpackConfig = {
     }),
     new CopyPlugin(
       config.copy.map(function(copy) {
-        return {from: copy, to: `[path][name].[ext]`}
+        return {from: copy, to: `[path][name].[ext]${cacheBust}`}
       })
     ),
     new ImageminPlugin({
@@ -133,7 +133,7 @@ let webpackConfig = {
       disable: (config.enabled.watcher),
     }),
     new ExtractTextPlugin({
-      filename: `styles/[name].css`,
+      filename: `styles/[name].css${cacheBust}`,
       disable: (config.enabled.watcher),
     }),
     new webpack.ProvidePlugin({
