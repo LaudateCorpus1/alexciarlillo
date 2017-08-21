@@ -1,0 +1,16 @@
+#work-projects.carousel.slide(data-ride="carousel")
+  ol.carousel-indicators
+    li(data-target="#work-projects" data-slide-to="0" class="active")
+    li(data-target="#work-projects" data-slide-to="1")
+    li(data-target="#work-projects" data-slide-to="2")
+  .carousel-inner
+    .carousel-item.active
+      img.d-block.img-fluid(src='/images/work1.png')
+    .carousel-item
+      img.d-block.img-fluid(src='/images/work2.png')
+    .carousel-item
+      img.d-block.img-fluid(src='/images/work3.png')
+  a.carousel-control-prev(href="#work-projects" role="button" data-slide="prev")
+      span.carousel-control-prev-icon(aria-hidden="true")
+  a.carousel-control-next(href="#work-projects" role="button" data-slide="next")
+      span.carousel-control-next-icon(aria-hidden="true")
